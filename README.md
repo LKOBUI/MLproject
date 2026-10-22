@@ -1,3 +1,80 @@
+# ML Project: Statistical Analysis, Deep Learning, and Deployment
+
+This repository brings together practical machine-learning and data-science studies, including statistical modeling, regression diagnostics, neural networks, and a PyTorch-based MNIST digit-classification deployment workflow.
+
+The existing notebooks investigate smart-grid stability, vehicle fuel-efficiency regression, housing analysis, outlier detection, PCA, generalized linear models, and neural networks. The repository also includes a Docker-oriented MNIST deployment project using PyTorch, CUDA where supported, LoRA, Gradio, and MLflow.
+
+## Table of Contents
+
+- [A). Decentral Smart Grid Control (DSGC)](#a-decentral-smart-grid-control-dsgc)
+- [Objectives of this notebook](#objectives-of-this-notebook)
+- [Detailed Summary of the Notebook](#detailed-summary-of-the-notebook)
+  - [1. Theoretical Setup & Math Framework](#1-theoretical-setup-math-framework)
+  - [2. Feature & Attribute Analysis](#2-feature-attribute-analysis)
+  - [3. Statistical Analysis & Feature Engineering](#3-statistical-analysis-feature-engineering)
+  - [4. Baseline Modeling & Behavior Insights](#4-baseline-modeling-behavior-insights)
+- [B). diagnostics for linear regression using the classic Auto MPG dataset](#b-diagnostics-for-linear-regression-using-the-classic-auto-mpg-dataset)
+- [Objectives of this notebook](#objectives-of-this-notebook-1)
+- [Detailed Summary of the Notebook](#detailed-summary-of-the-notebook-1)
+  - [1. Exploratory Data Analysis & Baseline OLS](#1-exploratory-data-analysis-baseline-ols)
+  - [2. Residual Diagnostics](#2-residual-diagnostics)
+  - [3. High Leverage and Outlier Detection](#3-high-leverage-and-outlier-detection)
+  - [4. Quantifying Influential Observations](#4-quantifying-influential-observations)
+  - [5. Model Refinement & Comparison](#5-model-refinement-comparison)
+- [C). Ridge Regression:](#c-ridge-regression)
+- [Objectives of this notebook](#objectives-of-this-notebook-2)
+- [Detailed Summary of the Notebook](#detailed-summary-of-the-notebook-2)
+  - [1. Exploratory Data Analysis & Feature Scaling](#1-exploratory-data-analysis-feature-scaling)
+  - [2. The Limits of Baseline OLS](#2-the-limits-of-baseline-ols)
+  - [3. Transition to Ridge Regression (L2 Regularization)](#3-transition-to-ridge-regression-l2-regularization)
+  - [4. Hyperparameter Tuning and Cross-Validation](#4-hyperparameter-tuning-and-cross-validation)
+- [D). comprehensive data science workflow on housing project](#d-comprehensive-data-science-workflow-on-housing-project)
+- [Detailed Summary & Analysis Methods](#detailed-summary-analysis-methods)
+  - [1. Preprocessing & Descriptive Analysis](#1-preprocessing-descriptive-analysis)
+  - [2. Visual & Structural EDA](#2-visual-structural-eda)
+  - [3. Data Cleansing & Outlier Filtering](#3-data-cleansing-outlier-filtering)
+  - [4. Multicollinearity & Diagnostic Checks](#4-multicollinearity-diagnostic-checks)
+  - [5. Inferential & Predictive Regression Modeling](#5-inferential-predictive-regression-modeling)
+- [E). Design, train, and optimize Deep Learning neural networks  on smart grid:](#e-design-train-and-optimize-deep-learning-neural-networks-on-smart-grid)
+- [Detailed Summary & Hyperparameter Tuning Methods](#detailed-summary-hyperparameter-tuning-methods)
+  - [1. Core Objectives & Workflow](#1-core-objectives-workflow)
+  - [2. Hyperparameter Tuning & Modeling Methods](#2-hyperparameter-tuning-modeling-methods)
+  - [3. Convergence & Training Evaluation](#3-convergence-training-evaluation)
+- [F). Outlier-detection with robust mathematical filtering:](#f-outlier-detection-with-robust-mathematical-filtering)
+- [Detailed Summary & Mathematical Approach](#detailed-summary-mathematical-approach)
+  - [1. Core Objectives & Workflow](#1-core-objectives-workflow-1)
+  - [2. Mathematical Approaches for Outlier Detection](#2-mathematical-approaches-for-outlier-detection)
+  - [3. Impact Assessment](#3-impact-assessment)
+- [G).  Generalized Linear Models (GLMs)](#g-generalized-linear-models-glms)
+- [Detailed Summary & Mathematical Approach](#detailed-summary-mathematical-approach-1)
+  - [1. Core Objectives & Workflow](#1-core-objectives-workflow-2)
+  - [2. Mathematical Foundations of GLM](#2-mathematical-foundations-of-glm)
+  - [3. Mathematical Optimization & Diagnostics](#3-mathematical-optimization-diagnostics)
+- [H). Parametric regression modeling:](#h-parametric-regression-modeling)
+- [Detailed Summary & Mathematical Approach](#detailed-summary-mathematical-approach-2)
+  - [1. Core Objectives & Workflow](#1-core-objectives-workflow-3)
+  - [2. Mathematical Modeling Framework](#2-mathematical-modeling-framework)
+  - [3. Gauss-Markov Diagnostic Testing](#3-gauss-markov-diagnostic-testing)
+  - [4. Inferential Significance Testing](#4-inferential-significance-testing)
+- [I). : Apply Principal Component Analysis (PCA)](#i-apply-principal-component-analysis-pca)
+  - [1. Core Objectives & Workflow](#1-core-objectives-workflow-4)
+  - [2. Mathematical Framework: Principal Component Analysis (PCA)](#2-mathematical-framework-principal-component-analysis-pca)
+  - [3. Resolving Multicollinearity for Regression](#3-resolving-multicollinearity-for-regression)
+  - [5. Performance Benchmarking](#5-performance-benchmarking)
+- [J. PyTorch, CUDA, LoRA, and MNIST Model Deployment](#j-pytorch-cuda-lora-and-mnist-model-deployment)
+- [1. Project Overview](#1-project-overview)
+- [2. PyTorch Model Implementations](#2-pytorch-model-implementations)
+- [3. CUDA and Device Selection](#3-cuda-and-device-selection)
+- [4. Gradio User Interface](#4-gradio-user-interface)
+- [5. MLflow Experiment Tracking and Model Registry](#5-mlflow-experiment-tracking-and-model-registry)
+- [6. Docker Deployment: `MNIST_Deploy_Docker_Platform`](#6-docker-deployment-mnist_deploy_docker_platform)
+  - [Prerequisites](#prerequisites)
+  - [Get the project](#get-the-project)
+  - [Build the Docker image](#build-the-docker-image)
+  - [Run the container](#run-the-container)
+  - [Troubleshooting](#troubleshooting)
+- [7. Typical Workflow](#7-typical-workflow)
+
 # A). Decentral Smart Grid Control (DSGC)
 
 The file Smart-Grid-nominal-power-study.ipynb located within the ML_Project/ml_project_notebook/ directory evaluates Decentral Smart Grid Control (DSGC) systems. It models stability and power dynamics across decentralized energy networks.
@@ -375,3 +452,140 @@ $$\text{Scores} = Z \cdot W_k$$
 * **Final Comparisons:** The regularized Ridge model is evaluated side-by-side with the unconstrained OLS model across test sets.
 * **Key Insight:** The notebook highlights that while Ridge regression incurs slightly higher bias on the training split, it yields a major drop in testing error (RMSE), making it a much more robust option for real-world real estate deployment.
 
+---
+
+# J. PyTorch, CUDA, LoRA, and MNIST Model Deployment
+
+## 1. Project Overview
+
+The `MNIST_Deploy_Docker_Platform` project extends the repository's notebook-based work with an application-oriented handwritten-digit classification workflow. It uses PyTorch to define and evaluate neural-network models, supports CUDA execution when the host and installed PyTorch build are compatible, and provides a Docker-oriented deployment path.
+
+Deployment project: [MNIST_Deploy_Docker_Platform](https://github.com/LKOBUI/MLproject/tree/main/MNIST_Deploy_Docker_Platform)
+
+## 2. PyTorch Model Implementations
+
+The MNIST implementation uses grayscale \(28 \times 28\) images and predicts one of ten digit classes (0–9). The dense MLP model flattens each image into 784 input features and passes them through configurable fully connected layers to produce ten output logits.
+
+The implementation includes:
+
+- **Dense MLP:** a configurable `torch.nn.Module` network for digit classification.
+- **Weight initialization:** configurable Glorot/Xavier and He initialization strategies.
+- **LoRA variant:** a low-rank adaptation implementation using LoRA-enabled linear layers. LoRA offers a parameter-efficient way to adapt selected weights; benefits depend on the model and training setup.
+- **Training utilities:** data loading, training/evaluation helpers, and optional automatic mixed precision where supported.
+
+## 3. CUDA and Device Selection
+
+The code can use an NVIDIA GPU when CUDA is available in the installed PyTorch environment. The application should select the device at runtime:
+
+```python
+import torch
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model = model.to(device)
+```
+
+Input batches must be moved to the same device as the model. CUDA support depends on the GPU, host driver, PyTorch build, and container runtime configuration. Building a Docker image for `linux/arm64` does not by itself guarantee GPU access inside the container.
+
+Check CUDA availability in the active Python environment:
+
+```bash
+python -c "import torch; print('PyTorch:', torch.__version__); print('CUDA available:', torch.cuda.is_available()); print('CUDA build:', torch.version.cuda)"
+```
+
+## 4. Gradio User Interface
+
+Gradio provides a browser-based interface for interacting with the model workflow. The interface can expose model and training selections, launch an experiment, and present evaluation output or a summary report. The exact controls depend on the application code in the deployment folder.
+
+If the application listens on Gradio's commonly used default port `7860`, the interface is typically available at `http://localhost:7860`. Use the port configured in the actual application and Docker setup.
+
+## 5. MLflow Experiment Tracking and Model Registry
+
+MLflow can track experiment inputs and outputs:
+
+- **Parameters:** model selection and configuration values supplied through the UI.
+- **Metrics:** evaluation results and training measurements.
+- **Artifacts:** selected model files and other outputs saved by an experiment.
+- **Model Registry:** the project-specific registered model name is `Digit Mist Pytorch Cuda` where that registry configuration is enabled.
+
+Start a local MLflow tracking UI in an environment where MLflow is installed:
+
+```bash
+mlflow ui --host 0.0.0.0 --port 5000
+```
+
+Open `http://localhost:5000` in a browser. This starts a UI for the tracking store configured by MLflow; it does not automatically configure a remote tracking server or production database.
+
+## 6. Docker Deployment: `MNIST_Deploy_Docker_Platform`
+
+Deployment project: [Open MNIST_Deploy_Docker_Platform on GitHub](https://github.com/LKOBUI/MLproject/tree/main/MNIST_Deploy_Docker_Platform)
+
+### Prerequisites
+
+- Git and Docker Engine.
+- A compatible Python/PyTorch environment for local runs outside Docker.
+- For NVIDIA GPU execution inside Docker: a compatible NVIDIA driver and NVIDIA Container Toolkit, plus compatible PyTorch/CUDA dependencies in the image.
+- Access to the deployment folder, Dockerfile, application code, and dependency files.
+
+### Get the project
+
+```bash
+git clone https://github.com/LKOBUI/MLproject.git
+cd MLproject/MNIST_Deploy_Docker_Platform
+```
+
+### Build the Docker image
+
+Run the build command from the deployment project's root directory, adjusting the Dockerfile path to match the checked-out files.
+
+If the Dockerfile is at `docker/Dockerfile`:
+
+```bash
+docker build --platform linux/arm64 -f docker/Dockerfile -t digit-mist-app:latest .
+```
+
+If the Dockerfile is at the deployment folder's root:
+
+```bash
+docker build --platform linux/arm64 -t digit-mist-app:latest .
+```
+
+The build context (`.`) should contain the files referenced by the Dockerfile. PyTorch packages can be large, so the first build may take time while dependencies download.
+
+### Run the container
+
+If the Gradio application listens on port `7860` inside the container:
+
+```bash
+docker run --rm -p 7860:7860 --name digit-mist-app digit-mist-app:latest
+```
+
+Then open `http://localhost:7860`. If the app uses another port, change the port mapping to match its configuration.
+
+For a Docker host configured for NVIDIA containers, GPU access can be requested with:
+
+```bash
+docker run --rm --gpus all -p 7860:7860 --name digit-mist-app digit-mist-app:latest
+```
+
+The `--gpus all` option requires the host to be configured for NVIDIA GPU access and the image/runtime to be compatible. Do not use it for a CPU-only container.
+
+### Troubleshooting
+
+```bash
+docker ps
+docker logs digit-mist-app
+docker image ls
+```
+
+If the application cannot detect CUDA, verify the host driver, NVIDIA Container Toolkit, PyTorch build, container runtime, and target architecture. If the UI is unreachable, verify the application's listening port and the `-p host_port:container_port` mapping.
+
+## 7. Typical Workflow
+
+1. Choose model and experiment parameters in the Gradio interface.
+2. Load and preprocess MNIST batches.
+3. Train or evaluate the selected PyTorch model, optionally using CUDA and the LoRA variant.
+4. Log experiment parameters, metrics, and artifacts to MLflow.
+5. Review the run and model artifacts in the MLflow UI.
+6. Build and run the application container with Docker.
+
+> **Configuration note:** Dockerfile paths, listening ports, environment variables, and MLflow tracking configuration must match the files in the checked-out deployment folder. The commands above document the workflow and include the ARM64 Dockerfile path discussed for this project; verify the actual file layout before running them.
