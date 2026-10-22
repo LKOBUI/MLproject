@@ -1,0 +1,22 @@
+application:
+  name: "Digit Mist — PyTorch"
+  host: "0.0.0.0"
+  port: 7860
+model:
+  weights_path: "models/saved_model.pth"
+  config_path: "models/model_config.json"
+  architecture: "PytorchTensorDigitMist"
+  hidden: 300
+  use_bias: true
+  kernel_init: "GlorotUniform"
+  lora_uses: false
+  lora_rank: 8
+preprocessing:
+  image_size: [28, 28]
+  grayscale: true
+  normalize_mean: 0.1307
+  normalize_std: 0.3081
+mlflow:
+  tracking_uri: "sqlite:///mlflow.db"
+  experiment_name: "Digit Mist Pytorch Cuda"
+  registered_model_name: "Digit Mist Pytorch Cuda"

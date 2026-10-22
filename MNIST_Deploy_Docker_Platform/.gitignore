@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.pytest_cache/
+data/
+mlflow.db
+mlflow.db-shm
+mlflow.db-wal
+mlruns/
+# Keep generated plots/metrics out of Git unless intentionally committed.
+artifacts/*.png
+artifacts/metrics.json
+# The trained weights are generated locally; version them only if appropriate.
+# models/saved_model.pth

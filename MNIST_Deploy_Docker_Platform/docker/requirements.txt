@@ -1,0 +1,12 @@
+# Install PyTorch/torchvision builds compatible with your target CPU architecture.
+torch
+torchvision
+gradio
+Pillow
+numpy
+matplotlib
+scikit-learn
+mlflow
+loralib
+PyYAML
+pytest
